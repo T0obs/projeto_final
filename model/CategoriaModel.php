@@ -1,10 +1,11 @@
 <?php
 
-    class CategoriaModel{
+    require "config/Conexao.php";
 
-        function __construct($conexao)
+    class CategoriaModel{
+        function __construct()
         {
-            $this->conexao = $conexao;    
+            $this->conexao = Conexao::getConnection();
         }
 
         function inserir($nome){
@@ -22,7 +23,7 @@
         }
 
         function atualizar($nome, $id){
-            $sql = "UPDATE categoria SET nome=? WHERE idcategoria=?";
+            $sql = "UPDATE categoria SET nome = ? WHERE idcategoria = ?";
             $comando = $this->conexao->prepare($sql);
             $comando->bind_param("si", $nome, $id);
             return $comando->execute();
@@ -38,8 +39,8 @@
             return null;
         }
 
-        function buscarPorid($id){
-            $sql = "SELECT * FROM categoria WHERE idcategoria =?";
+        function buscarPorId($id){
+            $sql = "SELECT * FROM categoria WHERE idcategoria = ?";
             $comando = $this->conexao->prepare($sql);
             $comando->bind_param("i", $id);
             if($comando->execute()){
@@ -48,7 +49,5 @@
             }
             return null;
         }
-
     }
-
 ?>
