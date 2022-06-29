@@ -1,25 +1,29 @@
 <?php
 
     require "model/CategoriaModel.php";
+    require "controller/Controller.php";
 
-    class Categoria{
+    Class Categoria extends Controller{
 
-        function __construct(){
-            $this->model = new CategoriaModel();
+        function __construct()
+        {
+           $this-> model = new CategoriaModel();
         }
-
         function index(){
-            var_dump($this->model->buscarTodos());
+            $categorias=($this->model->buscarTodos(2));
+            $this->load_template ("categoria/listagem.php", $categorias);
+
+
+        }
+        function inserir(){
+
         }
 
-        function inserir(){
-            echo "testando função inserir";
-        }
     }
 
-    //codigos para mexer no bd!
-    //$model->inserir("Produto de Limpeza");
-    //$model->excluir(1);
-    //$model->atualizar("Smartphone", 2);
-    //var_dump($model->buscarPorId(2));
+
+    //$model->inserir("Produto de Limpeza");//
+    //$model->excluir(1);//
+    //$model->atualizar("Smartphone", 2);//
+
 ?>
