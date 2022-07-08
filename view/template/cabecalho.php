@@ -15,9 +15,7 @@
     <!-- Cabeçalho -->
     <header style="background-color: black;">
         <div class="container text-white pt-3 pb-3">
-            <a href="<?= base_url(). "?c=home" ?>" class="text-white text-decoration-none">
-              <h1>Catálogo do IF</h1>
-            </a>
+           <a href="<?= base_url()."?c=home"?>" class="text-white text-decoration-none "> <h1>Catálogo do IF</h1> </a>
             <p>Aqui você encontra de tudo</p>
         </div>
     </header>

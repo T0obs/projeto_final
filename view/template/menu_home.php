@@ -18,7 +18,7 @@
         <?php endforeach; ?>
 
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" 
+          <a class="nav-link " aria-current="page" 
           href="<?= base_url(). "?c=restrito&m=login" ?>">
             Acesso Restrito
           </a>
@@ -26,7 +26,7 @@
 
       </ul>
       <form class="d-flex" method="POST" action="<?= base_url(). "?c=home&m=search" ?>">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name='search'>
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
     </div>

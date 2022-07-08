@@ -1,17 +1,26 @@
 <?php
-    require "model/UsuarioModel.php";
-    require "controller/Controller.php";
+  require 'model/UsuarioModel.php';
 
     class Restrito{
 
         function __construct(){
-            $this->usuario = new UsuarioModel();
+           $this->usuario = new UsuarioModel();
+           
         }
 
-        function login(){
+
+        function login($id){
+       
             include "view/template/cabecalho.php";
             include "view/restrito/form.php";
             include "view/template/rodape.php";
+        }
+
+        function logout(){
+            session_start();
+            unset($_SESSION['usuario']);
+            session_destroy();
+            header('Location:?c=restrito&m=login');
         }
 
         function entrar(){
@@ -20,20 +29,14 @@
                 if(password_verify($_POST['senha'], $usuario['senha'])){
                     session_start();
                     $_SESSION['usuario'] = $usuario['login'];
-                    header('Location: ?c=categoria');
+                    header('Location:?c=categoria');
                 }else{
-                    header('Location: ?c=restrito&m=login');
+                    header('Location:?c=restrito&m=login');
                 }
-            }
-           
-        }
-
-        function sair(){
-            session_start();
-            unset($_SESSION['usuario']);
-            session_destroy();
-            header('Location: ?c=restrito&m=login');
-        }
+                    
+             
+             }
     }
+}
 
 ?>

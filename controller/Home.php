@@ -17,7 +17,6 @@
                 $produtos = ($this->produto->buscarTodos());
             }else{
                 $produtos = ($this->produto->buscarPorCategoria($id));
-
             }
             include "view/template/cabecalho.php";
             include "view/template/menu_home.php";
@@ -35,16 +34,18 @@
         }
 
         function search(){
+            
             $categorias = ($this->categoria->buscarTodos());
             $produtos = ($this->produto->buscarPorLikeNome($_POST['search']));
-
 
             include "view/template/cabecalho.php";
             include "view/template/menu_home.php";
             include "view/home/listagem.php";
-            include "view/template/rodape.php";
+            include "view/template/rodape.php"; 
+
+        }
         }
 
-    }
+    
 
 ?>

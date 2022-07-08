@@ -9,7 +9,7 @@
         }
 
         function inserir($login, $senha){
-            $sql = "INSERT INTO usuario (login, senha) values (?, ?)";
+            $sql = "INSERT INTO usuario (login, senha) values (?,?)";
             $comando = $this->conexao->prepare($sql);
             $comando->bind_param("ss", $login, $senha);
             return $comando->execute();

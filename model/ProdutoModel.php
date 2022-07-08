@@ -9,7 +9,7 @@
         }
 
         function inserir($nome, $descricao, $preco, $marca, $foto, $idcategoria){
-            $sql = "INSERT INTO produto (nome, descricao, preco, marca, foto, categoria_idcategoria) value (?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO produto (nome, descricao, preco, marca, foto, idcategoria) value (?, ?, ?, ?, ?, ?)";
             $comando = $this->conexao->prepare($sql);
             $comando->bind_param("ssdssi", $nome, $descricao, $preco, $marca, $foto, $idcategoria);
             return $comando->execute();
@@ -23,25 +23,15 @@
         }
 
         function atualizar($idproduto, $nome, $descricao, $preco, $marca, $foto, $idcategoria){
-            $sql = "UPDATE produto SET nome=?, descricao=?, preco=?, marca=?, foto=?, categoria_idcategoria=? 
+            $sql = "UPDATE produto SET nome=?, descricao=?, preco=?, marca=?, foto=?, idcategoria=? 
             WHERE idproduto = ?";
             $comando = $this->conexao->prepare($sql);
-            $comando->bind_param("ssdssii", $idproduto, $nome, $descricao, $preco, $marca, $foto, $idcategoria);
+            $comando->bind_param("ssdssii", $nome, $descricao, $preco, $marca, $foto, $idcategoria, $idproduto);
             return $comando->execute();
         }
 
-        function buscarTodos(){
-            $sql = "SELECT * FROM produto";
-            $comando = $this->conexao->prepare($sql);
-            if($comando->execute()){
-                $resultado = $comando->get_result();
-                return $resultado->fetch_all(MYSQLI_ASSOC);
-            }
-            return null;
-        }
-
         function buscarPorCategoria($idcategoria){
-            $sql = "SELECT * FROM produto WHERE categoria_idcategoria = ?";
+            $sql = "SELECT * FROM produto WHERE idcategoria = ?";
             $comando = $this->conexao->prepare($sql);
             $comando->bind_param("i", $idcategoria);
             if($comando->execute()){
@@ -54,8 +44,22 @@
         function buscarPorLikeNome($nome){
             $sql = "SELECT * FROM produto WHERE nome like ?";
             $comando = $this->conexao->prepare($sql);
-            $nome ="%$nome%";
+            $nome = "%".$nome."%";
             $comando->bind_param("s", $nome);
+            if($comando->execute()){
+                $resultado = $comando->get_result();
+                return $resultado->fetch_all(MYSQLI_ASSOC);
+            }
+            return null;
+        }
+
+
+        
+
+
+        function buscarTodos(){
+            $sql = "SELECT * FROM produto";
+            $comando = $this->conexao->prepare($sql);
             if($comando->execute()){
                 $resultado = $comando->get_result();
                 return $resultado->fetch_all(MYSQLI_ASSOC);

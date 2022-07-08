@@ -7,9 +7,9 @@
 
         function __construct(){
             session_start();
-            if(!isset($_SESSION['usuario'])){
-                header('Location: ?c=restrito&m=login');
-            }
+        if(!isset($_SESSION['usuario'])){
+            header('Location:?c=restrito&m=login');
+        }
             $this->model = new UsuarioModel();
         }
 
@@ -50,6 +50,7 @@
                         $this->model->inserir($_POST['login'], password_hash($_POST['senha'], PASSWORD_BCRYPT));
                     }else{
                         echo "Já existe um usuário com esse Login cadastrado!";
+                        die();
                     }  
                 }else{
                     $this->model->atualizar($_POST['idusuario'], $_POST['login'], password_hash($_POST['senha'], PASSWORD_BCRYPT));
